@@ -44,5 +44,30 @@ This library is included with the teensy loader...
   - Randomeness across all colors and brightness
   - LightSpeed type spaceflight thing
   - Fireworks Display
+  - ** twinkling white stars **
   
+## Changing FastLED to OCTO: ##
+
+#define USE_OCTOWS2811
+
+#include <OctoWS2811.h>
+
+#include <FastLED.h>
+
+#define NUM_LEDS_PER_STRIP 64
+
+#define NUM_STRIPS 8
+
+CRGB leds[NUM_STRIPS * NUM_LEDS_PER_STRIP];
+
+LEDS.addLeds<OCTOWS2811>(leds, NUM_LEDS_PER_STRIP);
+ 
+   for(int i = 0; i < NUM_STRIPS; i++) {
+    for(int j = 0; j < NUM_LEDS_PER_STRIP; j++) {      
+      leds[(i*NUM_LEDS_PER_STRIP) + j] = CHSV((32*i) + hue+j,192,255);
+    }
+  }
+ 
+ 
+
   
