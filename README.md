@@ -11,7 +11,7 @@ https://github.com/FastLED/
 https://www.arduinolibraries.info/libraries/octo-ws2811
 
 
- ## Dependencies: 
+ ## Dependencies: ##
 
 **FastLed:**
 
@@ -33,3 +33,16 @@ This library is included with the teensy loader...
 1 go here https://www.pjrc.com/teensy/td_libs_OctoWS2811.html
 
 2 and/or here https://www.pjrc.com/teensy/td_download.html
+
+
+ ## Clark's Personal Favs: ##
+  - FadeAll
+  - SpectrumAnalyzer (Potentially If We can get like a mike???)
+  
+ ## DoDeCaHeIdRoN Ideas ##
+  
+  - Randomeness across all colors and brightness
+  - LightSpeed type spaceflight thing
+  - Fireworks Display
+  
+  
