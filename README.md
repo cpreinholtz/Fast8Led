@@ -39,7 +39,10 @@ This library is included with the teensy loader...
   - FadeAll
   - SpectrumAnalyzer (Potentially If We can get like a mike???)
   
+ ## DoDeCaHeIdRoN Ideas ##
   
-  
+  - Randomeness across all colors and brightness
+  - LightSpeed type spaceflight thing
+  - Fireworks Display
   
   
