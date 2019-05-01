@@ -1,6 +1,6 @@
 # Fast8Led
 
- > PLEASE BEAR IN MIND: 
+ PLEASE BEAR IN MIND: 
 
  - ALMOST NONE OF THIS CODE WAS WRITTEN BY ME. 
 
@@ -11,7 +11,7 @@ https://github.com/FastLED/
 https://www.arduinolibraries.info/libraries/octo-ws2811
 
 
- > Dependencies: 
+ ## Dependencies: 
 
 **FastLed:**
 
