@@ -36,7 +36,8 @@ This library is included with the teensy loader...
 
 
  ## Clark's Personal Favs: ##
-  - FadeAll
+  - sweepAll (realley cool colors, fast and slow)
+  - exaples/FadeAll (SLow and sweet)
   - SpectrumAnalyzer (Potentially If We can get like a mike???)
   
  ## DoDeCaHeIdRoN Ideas ##
