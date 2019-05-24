@@ -61,7 +61,7 @@ void loop()
     FillLEDsFromPaletteColors( startIndex);
     
     LEDS.show();
-    LEDS.delay(1000 / UPDATES_PER_SECOND);
+    LEDS.delay(100 / UPDATES_PER_SECOND);
 }
 
 void FillLEDsFromPaletteColors( uint8_t colorIndex)
