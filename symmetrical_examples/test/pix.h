@@ -36,13 +36,30 @@ public:
   
   void applyToAdditive(CRGB *led_array){
     if (led_array[index].r==0)led_array[index].r=value.r;
-    else led_array[index].r= led_array[index].r+ value.r;
+    else if ( (int)led_array[index].r+ (int)value.r <=255 ) led_array[index].r+= value.r;
+    else led_array[index].r = 255;
 
     if (led_array[index].g==0)led_array[index].g=value.g;
-    else led_array[index].g= led_array[index].g+ value.g;
+    else if ( (int)led_array[index].g+ (int)value.g <=255 ) led_array[index].g+= value.g;
+    else led_array[index].g = 255;
     
-     if (led_array[index].b==0)led_array[index].b=value.b;
-    else led_array[index].b= led_array[index].b+ value.b;
+    if (led_array[index].b==0)led_array[index].b=value.b;
+    else if ( (int)led_array[index].b+ (int)value.b <=255 ) led_array[index].b+= value.b;
+    else led_array[index].b = 255;
+  };
+
+  void applyToword(CRGB *led_array, int decBy){
+    if (led_array[index].r==0)led_array[index].r=value.r;
+    else if (led_array[index].r>value.r)  led_array[index].r-=decBy;
+    else if (led_array[index].r<value.r)  led_array[index].r+=decBy;
+
+    if (led_array[index].g==0)led_array[index].g=value.g;
+    else if (led_array[index].g>value.g)  led_array[index].g-=decBy;
+    else if (led_array[index].g<value.g)  led_array[index].g+=decBy;
+    
+    if (led_array[index].b==0)led_array[index].b=value.b;
+    else if (led_array[index].b>value.b)  led_array[index].b-=decBy;
+    else if (led_array[index].b<value.b)  led_array[index].b+=decBy;
   };
 
   
@@ -80,17 +97,17 @@ public:
   ///////////////////////////////
   //DIM Single Color Single index
   void dimRed(int dimBy){
-      if (dimBy<1) dimBy=1;
+      //if (dimBy<1) dimBy=1;
       if (value.r>= dimBy)  value.r= value.r-dimBy;
       else value.r=0;
   }
   void dimGreen(int dimBy){
-      if (dimBy<1) dimBy=1;
+      //if (dimBy<1) dimBy=1;
       if (value.g>= dimBy)  value.g= value.g-dimBy;
       else value.g=0;
   }
   void dimBlue(int dimBy){
-      if (dimBy<1) dimBy=1;
+      //if (dimBy<1) dimBy=1;
       if (value.b>= dimBy)  value.b= value.b-dimBy;
       else value.b=0;
   }      
@@ -100,6 +117,15 @@ public:
     Pix::dimRed(dimBy);
     Pix::dimGreen(dimBy);
     Pix::dimBlue(dimBy);
+  }
+
+  //////////////////////////
+  //All colors single index
+  void dimBrightest(int dimBy){
+    if (value.r>value.g && value.r>value.b) Pix::dimRed(dimBy);
+    else if (value.g>value.b && value.g>value.r) Pix::dimGreen(dimBy);
+    else if (value.b>value.g && value.b>value.r) Pix::dimBlue(dimBy);
+    else Pix::dimRandColor(dimBy);
   }
 
   ////////////////////////////
@@ -167,7 +193,10 @@ public:
     for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyTo(led_array);
   };
   void applyToAdditive(CRGB *led_array){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyTo(led_array);
+    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyToAdditive(led_array);
+  };
+  void applyToword(CRGB *led_array, int decBy=1){
+    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyToword(led_array,decBy);
   };
 
   /////////////////////////////////////////
@@ -202,6 +231,16 @@ public:
   }
     
 
+  void dimAllBrightest(int dimBy=1){
+    for(int i = 0; i < _NUM_ACTIVE_PIX; i++)
+      arry[i].dimBrightest(dimBy);
+  }
+
+  void dimSingleBrightest(int ind, int dimBy=1){
+      arry[ind].dimBrightest(dimBy);
+  }
+
+  
   //////////////////////////////
   //Index
   

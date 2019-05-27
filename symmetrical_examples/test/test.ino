@@ -20,6 +20,7 @@ PixArray<NUM_LEDS> pixArray(NUM_LEDS);
 PixArray<NUM_LEDS> pixArray2(NUM_LEDS);
 
 void setup() {
+  delay( 3000 ); // power-up safety delay
   LEDS.addLeds<OCTOWS2811>(leds, NUM_LEDS_PER_STRIP);
   LEDS.setBrightness(32); 
   randomSeed(analogRead(0)); 
@@ -27,6 +28,9 @@ void setup() {
   reRand();
   startMillis=millis();
   lastSecondHand= (millis() / 1000) % 60;
+  changePaletteRand();
+
+
   
 }
 
@@ -37,9 +41,26 @@ void setup() {
 void loop() { 
 
 
+  whiteDim();
+  whiteRandDim();
+  whiteRandDimToGlow();
+  
+  
+  twirlArray(); 
+  
+  spinArray(8);
+  spinEvenly(-1);
+  spinEvenlySlowing(1,-1);
+  
   doubleSpin();
-  //whiteRandDim();
-  //whiteDim();
+  doubleSpinSaturated();
+
+  fireworks(NUM_LEDS);
+  
+  for (int i=0; i<10;i++) loopPalette(); //many effects in 1 (like 9 effects so foar?)
+
+
+  
   //randEffect();
  
 
@@ -113,156 +134,6 @@ void twirlArray(){
 
   //reRand();
   
-}
-
-
-
-
-void doubleSpinSaturated(){
-
-  //purple array
-  //pixArray.setActivePIX(5);
-  pixArray.setActivePIX(15);
-  pixArray.setValue(CRGB::Blue);  
-  pixArray.spreadEvenly(); 
-
-  //green pix
-  //pixArray2.setActivePIX(7);
-  pixArray2.setActivePIX(23);
-  pixArray2.setValue(CRGB::Green);  
-  pixArray2.spreadEvenly(); 
-  
-
-  
-  pixArray.applyTo(leds); 
-  pixArray2.applyTo(leds);
-  showAndClear(); delay(80);
- 
-
-  //for max=arraylen*2^i
-  //8*2^4=8*16=128
-
-  int dimBy=10+random(10);
-  //30*80= 2.4sec
-  for(int i=0; i<160; i++){
-    //spin array +
-    pixArray.addToIndex(1);
-    //spin pix -
-    pixArray2.addToIndex(-1);
-    
-    pixArray.applyTo(leds); 
-    pixArray2.applyTo(leds);
-    show(); dimAll(dimBy);
-    delay(50);
-  }
-
-  //reRand();
-  
-}
-
-void doubleSpin(){
-
-  //purple array
-  pixArray.setActivePIX(5);
-  pixArray.setValue(CRGB::Red);  
-  pixArray.spreadEvenly(); 
-
-  //green pix
-  pixArray2.setActivePIX(7);
-  pixArray2.setValue(CRGB::Blue);  
-  pixArray2.spreadEvenly(); 
-  
-
-  
-  pixArray.applyTo(leds); 
-  pixArray2.applyTo(leds);
-  showAndClear(); delay(80);
- 
-
-  //for max=arraylen*2^i
-  //8*2^4=8*16=128
-
-  int dimBy=10+random(10);
-  //30*80= 2.4sec
-  for(int i=0; i<160; i++){
-    //spin array +
-    pixArray.addToIndex(1);
-    //spin pix -
-    pixArray2.addToIndex(-1);
-    
-    pixArray.applyToAdditive(leds); 
-    pixArray2.applyToAdditive(leds);
-    show(); dimAll(dimBy);
-    delay(50);
-  }
-
-  //reRand();
-  
-}
-void whiteRandDim(){
-
-  //set all pix and spreadum
-  pixArray.setAllActivePIX();
-  pixArray.setIndexToIndex(); 
-
-  //set to white
-  pixArray.setValue(CRGB::White); 
-  pixArray.applyTo(leds); 
-  
-  //hold for .5 to 1 sec
-  showAndClear(); 
-  delay(random(500)+500);
-
-
-
-  int numdims=450;
-  // delay*numdims=period    eg period/numdims=delay
-  int dela=random(3)+1500/numdims;
-
-  
-  
-  for(int i=1; i<numdims; ){
-    //dim less as i increases (always dim under a certain cut off)
-    if( random(i)<numdims/3)i++;
-    pixArray.dimAllRandColor(1);
-    pixArray.applyTo(leds); 
-    showAndClear(); delay(dela);
-
-    
-  }
-  
-  pixArray.applyTo(leds); 
-  //hold for .5 to 1 sec
-  showAndClear(); delay(random(500)+500);
-
-}
-
-
-
-void whiteDim(){
-  //set all pix and spreadum
-  pixArray.setAllActivePIX();
-  pixArray.setIndexToIndex(); 
-
-  //set to white
-  pixArray.setValue(CRGB::White); 
-  pixArray.applyTo(leds); 
-  
-  //hold for .5 to 1 sec
-  showAndClear(); 
-  delay(random(500)+500);
-
-  //loop for 2.5 to 4 sec while dimming
-  int dela=random(3)+5;
-  for(int i=0; i<500; i++){
-    pixArray.dimAll(1);
-    pixArray.applyTo(leds); 
-    showAndClear(); delay(dela);
-  }
-  
-  //hold for .5 to 1 sec
-  showAndClear(); delay(random(500)+500);
-
 }
 
 
