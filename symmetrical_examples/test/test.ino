@@ -40,7 +40,12 @@ void setup() {
 
 void loop() { 
 
+//spinEvenlyInGroupsOf(32,16);//32 LEDS, in groups of 16
 
+
+
+
+/*
   whiteDim();
   whiteRandDim();
   whiteRandDimToGlow();
@@ -59,8 +64,11 @@ void loop() {
   
   for (int i=0; i<10;i++) loopPalette(); //many effects in 1 (like 9 effects so foar?)
 
+*/
 
-  
+
+  perStrip();
+  perStripAdditive();
   //randEffect();
  
 
