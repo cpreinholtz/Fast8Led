@@ -3,13 +3,13 @@
 void perStrip(){
 
 
-  pixArray.setActivePIX(16);
+  pixArray.setActivePIX(194);
   pixArray.setValue(CRGB::MidnightBlue); 
   pixArray.useSingleStripIndexing();
   pixArray.setIndexToIndex(); 
 
  
-  pixArray2.setActivePIX(2);
+  pixArray2.setActivePIX(16);
   pixArray2.setValue(CRGB::White); 
   pixArray2.useSingleStripIndexing(); 
   pixArray2.spreadEvenlyInGroupsOf(2); 
@@ -49,13 +49,13 @@ void perStripAdditive(){
 
 
 
-  pixArray.setActivePIX(16);
+  pixArray.setActivePIX(194);
   pixArray.setValue(CRGB::MidnightBlue); 
   pixArray.useSingleStripIndexing();
   pixArray.setIndexToIndex(); 
 
  
-  pixArray2.setActivePIX(2);
+  pixArray2.setActivePIX(16);
   pixArray2.setValue(CRGB::Teal); 
   pixArray2.useSingleStripIndexing(); 
   pixArray2.spreadEvenlyInGroupsOf(2); 
@@ -92,8 +92,3 @@ void perStripAdditive(){
   pixArray.useAbsoluteIndexing();
   pixArray2.useAbsoluteIndexing();
 }
-
-
-
-
-

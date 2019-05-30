@@ -42,6 +42,7 @@ void whiteRandDimToGlow(){
 
 
   //pulse
+  int del=1;
   int fadeW=15;  
   for(int led=0; led<NUM_LEDS; led++ ){ 
     for (int subLed=0; subLed< fadeW; subLed++){
@@ -50,7 +51,7 @@ void whiteRandDimToGlow(){
       if (led>subLed)pixArray.dimSingleBrightest(led-subLed,dimby);
     }    
     pixArray.applyTo(leds);
-    showAndClear(); delay(10);     
+    showAndClear(); delay(del);     
   }
   
   for(int led=NUM_LEDS-fadeW; led<NUM_LEDS; led++ ){
@@ -59,7 +60,7 @@ void whiteRandDimToGlow(){
       pixArray.dimSingleBrightest(subLed,dimby);
     }
     pixArray.applyTo(leds);
-    showAndClear(); delay(10);
+    showAndClear(); delay(del);
   }
   
 
@@ -162,7 +163,3 @@ void whiteDim(){
   showAndClear(); delay(random(500)+500);
 
 }
-
-
-
-

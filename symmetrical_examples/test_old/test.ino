@@ -6,7 +6,7 @@
 // Pin layouts on the teensy 3:
 // OctoWS2811: 2,14,7,8,6,20,21,5
 
-#define NUM_LEDS_PER_STRIP 194
+#define NUM_LEDS_PER_STRIP 16
 #define NUM_STRIPS 8
 #define NUM_LEDS (NUM_LEDS_PER_STRIP * NUM_STRIPS)
 
@@ -22,11 +22,9 @@ PixArray<NUM_LEDS> pixArray2(NUM_LEDS);
 void setup() {
   delay( 3000 ); // power-up safety delay
   LEDS.addLeds<OCTOWS2811>(leds, NUM_LEDS_PER_STRIP);
-  LEDS.setBrightness(255); 
+  LEDS.setBrightness(32); 
   randomSeed(analogRead(0)); 
-  pixArray.useAbsoluteIndexing();
-  pixArray2.useAbsoluteIndexing();
-  pix.setValue(CRGB::Black);
+  pix.setValue(CRGB::Red);
   reRand();
   startMillis=millis();
   lastSecondHand= (millis() / 1000) % 60;
@@ -37,10 +35,46 @@ void setup() {
 }
 
 
+
+
+
 void loop() { 
-    //while(1)showAndClear();showAndClear();
+
+//spinEvenlyInGroupsOf(32,16);//32 LEDS, in groups of 16
 
 
+
+
+/*
+  whiteDim();
+  whiteRandDim();
+  whiteRandDimToGlow();
+  
+  
+  twirlArray(); 
+  
+  spinArray(8);
+  spinEvenly(-1);
+  spinEvenlySlowing(1,-1);
+  
+  doubleSpin();
+  doubleSpinSaturated();
+
+  fireworks(NUM_LEDS);
+  
+  for (int i=0; i<10;i++) loopPalette(); //many effects in 1 (like 9 effects so foar?)
+
+*/
+
+
+  perStrip();
+  perStripAdditive();
+  //randEffect();
+ 
+
+
+
+  
 }
 
 
@@ -57,6 +91,19 @@ void randEffect(){
   int num_effects=10;
   int effect = random(num_effects);
   switch (effect){
+    case 0:
+      spinArray(8); pix.addToIndex(1);
+      break;
+    case 1:
+      twirlArray(); pix.addToIndex(1);
+      break;
+    case 2:
+      spinEvenly(-1); pix.addToIndex(1);
+      break; 
+    case 3: 
+      spinEvenlySlowing(1,-1); pix.addToIndex(1);
+      break; 
+         
     default:
       reRand();
       break;      
@@ -68,8 +115,6 @@ void reRand(){
   //pix.randomValue();
   pixArray.randomValue();
   pixArray.randomIndex();
-  pixArray2.randomValue();
-  pixArray2.randomIndex();
   
 }
 
@@ -98,3 +143,16 @@ void twirlArray(){
   //reRand();
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

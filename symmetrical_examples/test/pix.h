@@ -297,6 +297,11 @@ public:
     for( int i=0; i<_NUM_PIX; i++)  arry[i].setValue(val);
     //clearInactive();
   };
+
+  void setSingleValue(CRGB val, int i){
+    arry[i].setValue(val);
+    //clearInactive();
+  };
   void randomValue(){
     for( int i=0; i<_NUM_PIX; i++)  arry[i].randomValue(); 
     //clearInactive();     

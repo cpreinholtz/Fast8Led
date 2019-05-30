@@ -43,9 +43,15 @@ void showAndDim(){
   dimAll(1);
 }
 
+void showAndDimBy(int dim){
+  pix.applyTo(leds);  
+  if (millis()-startMillis<10000) setNum();
+  LEDS.show();
+  dimAll(dim);
+}
+
 void show(){
   pix.applyTo(leds);  
   if (millis()-startMillis<10000) setNum();
   LEDS.show();
 }
-
