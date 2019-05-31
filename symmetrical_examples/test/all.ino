@@ -1,12 +1,15 @@
 void allEffects(int e) { 
   for (int i=0;i<100;i++)
-    showEffect(random(i));
+    testEffect();
+    //showEffect(random(i));
 }
 
 void randEffect(int e) { 
-  showEffect(random(100));
+  //showEffect(random(100));
 }
 
+
+/*
 void showEffect(int e) { 
 
   e=e%30;//?  set to max effects
@@ -100,19 +103,22 @@ void showEffect(int e) {
 
 
 
-     case 0:
+     case 21:
  
       break;
 
-     case 0:
+     case 22:
  
       break;
 
-     case 0:
+     case 23:
  
       break;
-      
 
-  }
-   
+    default:
+      break;
+  }   
 }
+
+*/
+

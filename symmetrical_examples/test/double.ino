@@ -1,55 +1,43 @@
 
 
-void doubleSpinSaturated() {
+void doubleSpinSaturated(int dimBy,int del,int num_leds) {
 
   //purple array
-  //pixArray.setActivePIX(5);
-  pixArray.setActivePIX(15);
+  pixArray.setActivePIX(num_leds +random(10));
   pixArray.setValue(CRGB::Blue);
   pixArray.spreadEvenly();
 
   //green pix
-  //pixArray2.setActivePIX(7);
-  pixArray2.setActivePIX(23);
+  pixArray2.setActivePIX(num_leds+5 +random(10));
   pixArray2.setValue(CRGB::Green);
   pixArray2.spreadEvenly();
 
 
 
-  pixArray.applyTo(leds);
-  pixArray2.applyTo(leds);
-  showAndClear(); delay(80);
+  dimBy +=  random(10);
+  long long startT=millis();
+  
 
-
-  //for max=arraylen*2^i
-  //8*2^4=8*16=128
-
-  int dimBy = 10 + random(10);
-  //30*80= 2.4sec
-  for (int i = 0; i < 160; i++) {
-    //spin array +
-    pixArray.addToIndex(1);
-    //spin pix -
-    pixArray2.addToIndex(-1);
+  while (millis()<startT+10000) {    
+    pixArray.addToIndex(1);//spin array +
+    pixArray2.addToIndex(-1);    //spin pix -
 
     pixArray.applyTo(leds);
     pixArray2.applyTo(leds);
-    show(); dimAll(dimBy);
-    delay(50);
+    show(); 
+    dimAll(dimBy);
+    delay(del);
   }
-
-  //reRand();
-
 }
 
 
 
 
 
-void doubleSpin() {
+void doubleSpin(int dimBy,int del) {
 
   //purple array
-  pixArray.setActivePIX(5);
+  pixArray.setActivePIX(7);//was 5
   pixArray.setValue(CRGB::Red);
   pixArray.spreadEvenly();
 
@@ -58,28 +46,17 @@ void doubleSpin() {
   pixArray2.setValue(CRGB::Blue);
   pixArray2.spreadEvenly();
 
+  //dimBy +=  random(10);
+  long long startT=millis();  
 
-
-  pixArray.applyTo(leds);
-  pixArray2.applyTo(leds);
-  showAndClear(); delay(80);
-
-
-  //for max=arraylen*2^i
-  //8*2^4=8*16=128
-
-  int dimBy = 10 + random(10);
-  //30*80= 2.4sec
-  for (int i = 0; i < 160; i++) {
-    //spin array +
+  while (millis()<startT+10000) {
     pixArray.addToIndex(1);
-    //spin pix -
     pixArray2.addToIndex(-1);
 
     pixArray.applyToAdditive(leds);
     pixArray2.applyToAdditive(leds);
     show(); dimAll(dimBy);
-    delay(50);
+    delay(del);
   }
 
   //reRand();

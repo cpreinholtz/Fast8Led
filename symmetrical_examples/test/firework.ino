@@ -13,8 +13,10 @@ void fireworksColor(int activeLeds){
 
   //del*loops=time mS
   int del=0;
-  int loops=2000;
-  for(int i=0; i<loops; i++){
+  int VARdelay =10;
+  long long startT = millis();
+  while(millis()<startT+7000){
+    static int i=0;
     if (temp.r<temp2.r)temp.r+=10;
     else temp.r-=10;
 
@@ -24,19 +26,26 @@ void fireworksColor(int activeLeds){
     if (temp.b<temp2.b)temp.b+=10;
     else temp.b-=10;
     
-    pixArray.setSingleValue(temp,i % activeLeds);
+    pixArray.setSingleValue(temp,i++ % activeLeds);
     
     
-    for(int i=0; i<activeLeds; i++){
+    for(int i=0; i<NUM_LEDS; i++){
       if (random(10000)>9980) {
         leds[i]=CRGB::White;
       }
     }
+
+
+    
     int dec=1;
     pixArray.applyToword(leds,dec);
     showAndDimBy(10);delay(del);
   }  
 }
+
+
+
+
 
 
 
@@ -49,9 +58,9 @@ void fireworks(int activeLeds){
 
   //del*loops=time mS
   int del=0;
-  int loops=2000;
-  for(int i=0; i<loops; i++){
-    for(int i=0; i<activeLeds; i++){
+  long long startT = millis();
+  while(millis()<startT+7000){
+    for(int i=0; i<NUM_LEDS; i++){
       if (random(10000)>9980) {
         leds[i]=CRGB::White;
       }
@@ -62,6 +71,17 @@ void fireworks(int activeLeds){
   }  
   
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 void fireworksClear(int activeLeds){
@@ -75,10 +95,11 @@ void fireworksClear(int activeLeds){
 
   //del*loops=time mS
   int del=1;
-  int loops=2000;
-  for(int i=0; i<loops; i++){
+  long long startT = millis();
+  while(millis()<startT+7000){
+    
     for(int i=0; i<activeLeds; i++){
-      if (random(10000)>9995) {
+      if (random(10000)>9250) {
         leds[i]=CRGB::White;
       }
     }

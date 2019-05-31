@@ -2,6 +2,17 @@
 
 
 
+void reRand(){
+  //pix.randomValue();
+  pixArray.randomValue();
+  pixArray.randomIndex();
+  pixArray2.randomValue();
+  pixArray2.randomIndex();
+  
+}
+
+
+
 ////////////////////////////////////////////////////
 //
 //sets all led values to 0, does not effect pix objects stored memory

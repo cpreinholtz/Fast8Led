@@ -31,9 +31,9 @@ void pulse(){
 delay(1000);
   //pulse
   int fadeW=15;  
-  long long startT=millis;
+  long long startT=millis();
   
-  while (millis<startT+10000){
+  while (millis()<startT+10000){
     for(int strip=0; strip<NUM_STRIPS; strip++ ){ 
       for(int i=0; i<NUM_LEDS_PER_STRIP; i++ ){ 
         int led=strip*NUM_LEDS_PER_STRIP+i;

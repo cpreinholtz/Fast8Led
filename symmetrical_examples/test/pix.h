@@ -2,7 +2,7 @@
 #define pix_h
 #include <FastLED.h>
 #include <Arduino.h>
-#define NUM_LEDS 10
+#define NUM_LEDS 10 //Included as default only, should be overwritten in main
 
 
 
@@ -96,50 +96,12 @@ public:
   };
 
   
-
-  /////////////////////////////////////////
-  //IDX 
-
-
-  void setIndex(int idx){ index=idx; normalizeIndex(); };
-
-  void useSingleStripIndexing(){
-    _ACTIVE_INDEX=_NUM_LEDS/8;
-    normalizeIndex(); 
-  };  
-  void useAbsoluteIndexing(){ 
-    _ACTIVE_INDEX=_NUM_LEDS; 
-    normalizeIndex(); 
-  };
-  
-  int getIndex(){return index;};
-  
-  void randomIndex(){
-    index = random(_NUM_LEDS);      
-  };
-  
-  void subFromIndex(int idx){
-    setIndex(index-idx);  
-  };
-
-  void addToIndex(int idx){
-    setIndex(index+idx);
-  };
-  
-  int squishIndexTowords(int ind){
-      if (index> ind){
-        setIndex(index-1); 
-        return index-ind;        
-      } 
-      else if (index<ind){
-        setIndex(index+1);
-        return ind-index;
-      }
-  };
-  
-  /////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
   //Value
   void setValue(CRGB val){value=val;};
+  void setRValue(int val){value.r=val;};
+  void setGValue(int val){value.g=val;};
+  void setBValue(int val){value.b=val;};
   CRGB getValue(){return value;};
   
   void randomValue(){
@@ -195,6 +157,47 @@ public:
     }  
   }
 
+
+  ///////////////////////////////////////////////////////////////////////////////
+  //IDX 
+
+
+  void setIndex(int idx){ index=idx; normalizeIndex(); };
+
+  void useSingleStripIndexing(){
+    _ACTIVE_INDEX=_NUM_LEDS/8;
+    normalizeIndex(); 
+  };  
+  void useAbsoluteIndexing(){ 
+    _ACTIVE_INDEX=_NUM_LEDS; 
+    normalizeIndex(); 
+  };
+  
+  int getIndex(){return index;};
+  
+  void randomIndex(){
+    index = random(_NUM_LEDS);      
+  };
+  
+  void subFromIndex(int idx){
+    setIndex(index-idx);  
+  };
+
+  void addToIndex(int idx){
+    setIndex(index+idx);
+  };
+  
+  int squishIndexTowords(int ind){
+      if (index> ind){
+        setIndex(index-1); 
+        return index-ind;        
+      } 
+      else if (index<ind){
+        setIndex(index+1);
+        return ind-index;
+      }
+  };
+  
   
   /////////////////////////////////////////
   //Other
@@ -227,271 +230,5 @@ private:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-template < int ARRAY_LEN >
-class PixArray{
-public:
-  PixArray(int num_leds){
-    //_NUM_PIX=ARRAY_LEN;
-    _NUM_LEDS=num_leds;
-    _ACTIVE_LEDS=_NUM_LEDS;
-    _NUM_ACTIVE_PIX=_NUM_PIX;
-    for( int i=0; i<_NUM_PIX; i++){      
-      arry[i].set_NUM_LEDS(num_leds);
-    }
-  };
-
-  void applyTo(CRGB *led_array){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyTo(led_array);
-  };
-
-  void applyToAllStrips(CRGB *led_array){
-    for(int strip=0;strip<8;strip++){
-      for( int i=0; i<_NUM_ACTIVE_PIX; i++) {
-        arry[i].applyToStrip(led_array,strip);
-      }
-    }
-  };
-  
-  void applyToAllStripsAdditive(CRGB *led_array){
-    for(int strip=0;strip<8;strip++){
-      for( int i=0; i<_NUM_ACTIVE_PIX; i++) {
-        arry[i].applyToStripAdditive(led_array,strip);
-      }
-    }
-  };
-  
-  void applyToStrip(CRGB *led_array,int strip){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++) {
-      arry[i].applyToStrip(led_array,strip%8);
-    }
-  };
-  
-  void applyToAdditive(CRGB *led_array){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyToAdditive(led_array);
-  };
-  void applyToword(CRGB *led_array, int decBy=1){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++) arry[i].applyToword(led_array,decBy);
-  };
-
-  /////////////////////////////////////////
-  //Value  
-  CRGB getValue(int ind){
-    if (ind<_NUM_LEDS)
-      return arry[ind].getValue(); 
-    else 
-      return CRGB::Black;   
-  };  
-  
-  void setValue(CRGB val){
-    for( int i=0; i<_NUM_PIX; i++)  arry[i].setValue(val);
-    //clearInactive();
-  };
-
-  void setSingleValue(CRGB val, int i){
-    arry[i].setValue(val);
-    //clearInactive();
-  };
-  void randomValue(){
-    for( int i=0; i<_NUM_PIX; i++)  arry[i].randomValue(); 
-    //clearInactive();     
-  };
-
-
-  void clearInactive(){
-    for( int i=_NUM_ACTIVE_PIX; i<_NUM_PIX; i++)arry[i].setValue(CRGB::Black);
-  };
-
-
-  ////////////////////////////////////////////
-  //DIM All indecies all colors
-
-  void dimAllRed( int dimBy=1){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++) {
-      arry[i].dimRed(dimBy);
-    }
-  }
-  
-  void dimAllBlue( int dimBy=1){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++) {
-      arry[i].dimBlue(dimBy);
-    }
-  }
-  
-  void dimAllGreen( int dimBy=1){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++) {
-      arry[i].dimGreen(dimBy);
-    }
-  }
-
-  
-  void dimAll( int dimBy=1){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++) {
-      arry[i].dim(dimBy);
-    }
-  }
-  
-  /////////////////////////////////////////////
-  //DIM All indecies Random colors
-  void dimAllRandColor( int dimBy){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++) {
-      arry[i].dimRandColor(dimBy);
-    }
-  }
-    
-
-  void dimAllBrightest(int dimBy=1){
-    for(int i = 0; i < _NUM_ACTIVE_PIX; i++)
-      arry[i].dimBrightest(dimBy);
-  }
-
-  void dimSingleBrightest(int ind, int dimBy=1){
-      arry[ind].dimBrightest(dimBy);
-  }
-
-  
-  //////////////////////////////
-  //Index
-  
-  void randomIndex(){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].randomIndex();      
-  };
-
-  void subFromIndex(int idx){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].subFromIndex(idx);
-  };
-
-  void addToIndex(int idx){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].addToIndex(idx);   
-  };
-  
-  void squareIndex(){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].addToIndex(i);   
-  };
-  
-  void divergeIndex(){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  
-      if (i%2==0) arry[i].addToIndex(1); 
-      else   arry[i].addToIndex(-1);
-  };
-  
-  void setAllIndex(int idx){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].setIndex(idx);   
-  };
-
-  void setIndexToIndex(){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].setIndex(i);   
-  };
-  
-  void spreadEvenly(){
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  
-      arry[i].setIndex(_ACTIVE_LEDS*i/(_NUM_ACTIVE_PIX));   
-  };
-
-  int squishIndexTowords(int ind){
-    int greatestDiff=0;
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  {
-      int temp=arry[i].squishIndexTowords(ind-_NUM_ACTIVE_PIX+i);
-      if (temp>  greatestDiff)greatestDiff=temp;
-    }
-    return greatestDiff;
-  };
-
-  int squishIndexTowordsSpreadEvenly(){
-    int greatestDiff=0;
-    for( int i=0; i<_NUM_ACTIVE_PIX; i++)  {
-      int temp=arry[i].squishIndexTowords(_ACTIVE_LEDS*i/(_NUM_ACTIVE_PIX));
-      if (temp>  greatestDiff)greatestDiff=temp;
-    }
-    return greatestDiff;
-  };
-
-
-  
-
-  void spreadEvenlyInGroupsOf(int ledsPerGroup){
-
-    //_NUM_ACTIVE_PIX=ledsPerGroup*numGroups
-    int numGroups=_NUM_ACTIVE_PIX/ledsPerGroup;
-
-    //_NUM_LEDS=groupSpacing*numGroups
-    int groupSpacing=   _ACTIVE_LEDS/numGroups;
-    
-    for( int led=0; led<_NUM_ACTIVE_PIX; led++)  { 
-
-      
-      int subLed= led%ledsPerGroup;    //which led in the group am I?
-      int group=led/ledsPerGroup;//which group am I in
-      arry[led].setIndex(subLed+group*groupSpacing); 
-      
-      //if (led%ledsPerGroup==  ledsPerGroup-1) group++;
-    }
-  };
-  
-  
-  void clearIndexInactive(){
-    for( int i=_NUM_ACTIVE_PIX; i<_NUM_PIX; i++) arry[i].setIndex(0);
-  }
-
-  ///////////////////////////////////////
-  //setup
-  void set_NUM_LEDS(int num){
-    for( int i=0; i<_NUM_PIX; i++)  arry[i].set_NUM_LEDS(num);
-    _NUM_LEDS=num;
-  };
-
-  void useSingleStripIndexing(){
-    _ACTIVE_LEDS=_NUM_LEDS/8;
-    for( int i=0; i<_NUM_PIX; i++)  
-      arry[i].useSingleStripIndexing(); 
-  };  
-  void useAbsoluteIndexing(){ 
-    _ACTIVE_LEDS=_NUM_LEDS; 
-    for( int i=0; i<_NUM_PIX; i++) 
-      arry[i].useAbsoluteIndexing();
-  };  
-
-  void setActivePIX(int num){
-    if (num <=_NUM_PIX)_NUM_ACTIVE_PIX=num;
-    else _NUM_ACTIVE_PIX=_NUM_PIX;
-  };
-  
-  void setAtLeastActivePIX(int atLeast=(NUM_LEDS/3)){
-    _NUM_ACTIVE_PIX=atLeast+random(_NUM_PIX-atLeast);
-  };
-  void setAllActivePIX(){
-    _NUM_ACTIVE_PIX=_NUM_PIX;
-  };
-  
-  int get_NUM_PIX(){return _NUM_PIX;};
-  int get_NUM_ACTIVE_PIX(){return _NUM_ACTIVE_PIX;};
-  int get_NUM_LEDS(){return _NUM_LEDS;};
-  
-  Pix arry[ARRAY_LEN];//_PIX_LEN
-  
-private:
-
-  //number of pixel objects in the array
-  const int _NUM_PIX= ARRAY_LEN;
-  
-  //number of "active" pixel objects in the array
-  int _NUM_ACTIVE_PIX; 
-  
-  //used in indexing bounds, number of total LEDs
-  int _NUM_LEDS;
-
-  int _ACTIVE_LEDS;
-  
-};
 
 #endif
