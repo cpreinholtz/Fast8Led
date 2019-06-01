@@ -95,6 +95,33 @@ for (int i = 80; i > 15; i--) {
   ////////////////////
   //ADD SPARKLE HERE
 
+
+  int statT=millis();
+  int blk=100;
+  int wht=800;
+  for (int i = 0; millis()<startT+4000; i++) {
+    for (int i = 0; i < pixArray.getActivePIX(1); i++) {
+      int n =  random(1000);
+      if (n<blk){
+        pixArray.sparkleSingleBlack(leds,i);
+        if (blk<wht) blk++;
+      }
+      else if(n>=wht) {
+        pixArray.sparkleSingleWhite(leds,i);
+        if (wht<990) wht++;
+      }      
+    }
+    pixArray.applyTo(leds);
+    showAndDim(); delay(5);
+  }
+  
+
+
+
+
+
+  
+
   pixArray.applyTo(leds);
   showAndClear(); delay(800);
 

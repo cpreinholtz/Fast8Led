@@ -57,7 +57,15 @@ public:
   };
 
 
+  /////////////////////////////////////////////////////////////////////////////////
+  //
+  void sparkleSingleWhite(CRGB *led_array,int ind){
+    arry[ind].tempSparkleWhite(CRGB *led_array);
+  };
   
+  void sparkleSingleBlack(CRGB *led_array,int ind){
+    arry[ind].tempSparkleBlack(CRGB *led_array);
+  };
 
   /////////////////////////////////////////////////////////////////////////////////////
   //Value  
@@ -96,6 +104,30 @@ public:
 
   void clearInactive(){
     for( int i=_NUM_ACTIVE_PIX; i<_NUM_PIX; i++)arry[i].setValue(CRGB::Black);
+  };
+
+
+  void interpolateValue(CRGB from, CRGB to){
+
+      int rdif = (to.r-from.r)/_NUM_ACTIVE_PIX;
+      if (rdif==0 && to.r-from.r>0) rdif=1;
+      else if (rdif==0 && to.r-from.r<0) rdif=-1;
+      int rstart=from.r;
+      for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].setRValue(rstart+rdif*i);
+
+      
+      int gdif = (to.g-from.g)/_NUM_ACTIVE_PIX;      
+      if (gdif==0 && to.g-from.g>0) gdif=1;
+      else if (gdif==0 && to.g-from.g<0) gdif=-1;
+      int gstart=from.g;
+      for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].setGValue(gstart+gdif*i);
+
+
+      int bdif = (to.b-from.b)/_NUM_ACTIVE_PIX; 
+      if (bdif==0 && to.b-from.b>0) bdif=1;
+      else if (bdif==0 && to.b-from.b<0) bdif=-1;
+      int bstart=from.b;
+      for( int i=0; i<_NUM_ACTIVE_PIX; i++)  arry[i].setBValue(bstart+bdif*i);
   };
 
 
@@ -146,6 +178,11 @@ public:
 
   void dimSingleBrightest(int ind, int dimBy=1){
       arry[ind].dimBrightest(dimBy);
+  }
+
+  void dimSingle(int ind,int dimBy=1){
+    ind%=_NUM_ACTIVE_PIX;
+      arry[ind].dim(dimBy);
   }
 
   

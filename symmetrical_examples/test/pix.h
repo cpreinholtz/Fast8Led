@@ -54,6 +54,8 @@ public:
     strip=strip%8;
     int i=normalize(strip*_ACTIVE_INDEX + index);
     
+    led_array[i]+=value;
+    /*
     if (led_array[i].r==0)led_array[i].r=value.r;
     else if ( (int)led_array[i].r+ (int)value.r <=255 ) led_array[i].r+= value.r;
     else led_array[i].r = 255;
@@ -65,9 +67,13 @@ public:
     if (led_array[i].b==0)led_array[i].b=value.b;
     else if ( (int)led_array[i].b+ (int)value.b <=255 ) led_array[i].b+= value.b;
     else led_array[i].b = 255;
+    */
+    
   };
   
   void applyToAdditive(CRGB *led_array){
+    led_array[index]+=value;
+    /*
     if (led_array[index].r==0)led_array[index].r=value.r;
     else if ( (int)led_array[index].r+ (int)value.r <=255 ) led_array[index].r+= value.r;
     else led_array[index].r = 255;
@@ -79,6 +85,7 @@ public:
     if (led_array[index].b==0)led_array[index].b=value.b;
     else if ( (int)led_array[index].b+ (int)value.b <=255 ) led_array[index].b+= value.b;
     else led_array[index].b = 255;
+    */
   };
 
   void applyToword(CRGB *led_array, int decBy){
@@ -93,6 +100,21 @@ public:
     if (led_array[index].b==0)led_array[index].b=value.b;
     else if (led_array[index].b>value.b)  led_array[index].b-=decBy;
     else if (led_array[index].b<value.b)  led_array[index].b+=decBy;
+  };
+
+
+
+  //////////////////////////////////////////////////////////////////////////
+  void tempSparkleWhite(CRGB *led_array){
+    led_array[index]=CRGB::White;
+  };
+  
+  void tempSparkleBlack(CRGB *led_array){
+    led_array[index]=CRGB::Black;
+  };
+  
+  void tempSparkleColor(CRGB *led_array, CRGB col){
+    led_array[index]=col;
   };
 
   

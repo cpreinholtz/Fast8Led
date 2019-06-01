@@ -58,7 +58,7 @@ void testEffect() {
   //whiteRandDimToGlow();//last part is fleeting,add delay
   //whiteRandDimToAllGlow();//stil broken, tries to do all at once...
   
-  //spinEvenlyInGroupsOf(128,16);//slow start, add sparkle at the end
+  spinEvenlyInGroupsOf(128,16);//slow start, add sparkle at the end
 
   //spinArray(500,1);//boring? make prop to NUM _LEDS//speed up?
   //spinEvenly(-1,20);//cool random patterns spinning with near sturation
@@ -94,6 +94,10 @@ void testEffect() {
   //blueWaveMovingTemporal(16,1);
   
   //pulse();
+  //pulseBrightest();
+
+  //interpolate(CRGB::Red, CRGB::Cyan);
+  
   
   //loopPalette();//rand pallete  //looks fine, fix timing?
   
@@ -112,7 +116,7 @@ void testEffect() {
 
   //flashRand();  
   //flashRedFast();
-  flashRandWithRedFast();
+  //flashRandWithRedFast();
   //flashRedSuperFast();   
   //flashWarning();     
     //flashAllVal(10,50,50,CRGB::Red);//flashes, timeon timeoff, val
