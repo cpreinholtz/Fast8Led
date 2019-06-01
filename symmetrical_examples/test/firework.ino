@@ -76,7 +76,45 @@ void fireworks(int activeLeds){
 
 
 
+void sparkle(){
+  reRand();
+  pixArray.applyTo(leds);
+  
+  int blk=1;
+  int wht=930;
+  
+  long long startT=millis();
+  for (int loopC=0; millis()<startT+20000; loopC++ ) {
+    for (int i = 0; i < pixArray.getActivePIX(); i++) {
+      int n =  random(1000);
+      if (n<blk){
+        pixArray.setSingleValue(CRGB::Black,i);
+        //if (blk<wht) blk+=1;
+      }
+      else if(n>=wht) {
+        pixArray.sparkleSingleWhite(leds,i);
+        //if (wht<990) wht+=10;
+      }      
+    }
 
+    if (loopC%100==20 && blk<wht) blk+=5;
+    
+    if (loopC%30==20 && wht<990) wht+=10;
+    else if (loopC%10==9 && wht>= 990 && wht<1000) wht+=1;
+    
+    /*Serial.print("wht: ");
+    Serial.print(wht);
+    Serial.print("\t\tblk: ");
+    Serial.println(blk);*/
+    
+    showAndDimBy(16); 
+    pixArray.applyTo(leds);
+    delay(50);
+  }
+
+
+  
+}
 
 
 

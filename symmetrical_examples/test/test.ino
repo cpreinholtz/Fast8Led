@@ -59,7 +59,7 @@ void testEffect() {
   //whiteRandDimToAllGlow();//stil broken, tries to do all at once...
   
   spinEvenlyInGroupsOf(128,16);//slow start, add sparkle at the end
-
+  
   //spinArray(500,1);//boring? make prop to NUM _LEDS//speed up?
   //spinEvenly(-1,20);//cool random patterns spinning with near sturation
   //spinEvenlySlowing(1,-1);//looks cool
@@ -109,6 +109,7 @@ void testEffect() {
   //fireworks(NUM_LEDS/2);//looks cool
   //fireworks(NUM_LEDS);//too saturated?
   //fireworksClear(NUM_LEDS);//kinda cool and flashy?
+  //sparkle();reRand();
   
   //strobeStrip();//good
   //strobeColor();  //good

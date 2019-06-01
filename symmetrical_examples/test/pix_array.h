@@ -59,12 +59,12 @@ public:
 
   /////////////////////////////////////////////////////////////////////////////////
   //
-  void sparkleSingleWhite(CRGB *led_array,int ind){
-    arry[ind].tempSparkleWhite(CRGB *led_array);
+  void sparkleSingleWhite(CRGB *led_array, int ind){
+    arry[ind].tempSparkleWhite(led_array);
   };
   
-  void sparkleSingleBlack(CRGB *led_array,int ind){
-    arry[ind].tempSparkleBlack(CRGB *led_array);
+  void sparkleSingleBlack(CRGB *led_array, int ind){
+    arry[ind].tempSparkleBlack(led_array);
   };
 
   /////////////////////////////////////////////////////////////////////////////////////

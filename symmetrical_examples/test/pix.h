@@ -113,6 +113,7 @@ public:
     led_array[index]=CRGB::Black;
   };
   
+  
   void tempSparkleColor(CRGB *led_array, CRGB col){
     led_array[index]=col;
   };

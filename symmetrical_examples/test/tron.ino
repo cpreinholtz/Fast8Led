@@ -94,36 +94,50 @@ for (int i = 80; i > 15; i--) {
 
   ////////////////////
   //ADD SPARKLE HERE
-
-
-  int statT=millis();
-  int blk=100;
-  int wht=800;
-  for (int i = 0; millis()<startT+4000; i++) {
-    for (int i = 0; i < pixArray.getActivePIX(1); i++) {
+  int blk=1;
+  int wht=920;
+  startT=millis();
+  for (int loopC=0; millis()<startT+20000; loopC++ ) {
+    for (int i = 0; i < pixArray.getActivePIX(); i++) {
       int n =  random(1000);
       if (n<blk){
-        pixArray.sparkleSingleBlack(leds,i);
-        if (blk<wht) blk++;
+        pixArray.setSingleValue(CRGB::Black,i);
+        //if (blk<wht) blk+=1;
       }
       else if(n>=wht) {
         pixArray.sparkleSingleWhite(leds,i);
-        if (wht<990) wht++;
+        //if (wht<990) wht+=10;
       }      
     }
+
+    if (loopC%100==20 && blk<wht) blk+=5;
+    
+    if (loopC%30==20 && wht<990) wht+=10;
+    else if (loopC%10==9 && wht>= 990 && wht<1000) wht+=1;
+    
+    /*Serial.print("wht: ");
+    Serial.print(wht);
+    Serial.print("\t\tblk: ");
+    Serial.println(blk);*/
+    
+    showAndDimBy(16); 
     pixArray.applyTo(leds);
-    showAndDim(); delay(5);
+    delay(50);
   }
-  
 
 
+  //clear all
+  pixArray.setValue(CRGB::Black);
+  pixArray.applyTo(leds);    
+  showAndClear();showAndClear();
+  delay(3000);
 
-
-
-  
-
+  //set all on!
+  pixArray.setAllActivePIX();
+  pixArray.setIndexToIndex();
+  pixArray.setValue(CRGB::Cyan);  
   pixArray.applyTo(leds);
-  showAndClear(); delay(800);
+  showAndClear(); delay(3000);
 
   for (int i = 0; i < 255; i++) {
     pixArray.dimAll(1);
