@@ -95,7 +95,7 @@ for (int i = 80; i > 15; i--) {
   ////////////////////
   //ADD SPARKLE HERE
   int blk=1;
-  int wht=920;
+  int wht=880;
   startT=millis();
   for (int loopC=0; millis()<startT+20000; loopC++ ) {
     for (int i = 0; i < pixArray.getActivePIX(); i++) {
